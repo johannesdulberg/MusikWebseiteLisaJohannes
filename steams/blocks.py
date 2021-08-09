@@ -12,8 +12,10 @@ from wagtail.core.blocks import URLBlock,PageChooserBlock
 
 
 class TitleAndTextBlock(blocks.StructBlock):
+    
     title = blocks.CharBlock(required=True)
     text = blocks.TextBlock(required=True)
+    AbstandNachObenUnten = blocks.CharBlock(required=False)
 
     class Meta:
         template = "steams/title_and_text_block.html"
@@ -39,10 +41,15 @@ class SimpleTextBlock(blocks.RichTextBlock):
 
 class NAVBAR(blocks.StructBlock):
     title = blocks.TextBlock(required=True)
-    site1 = blocks.TextBlock(required=True)
-    site2 = blocks.TextBlock(required=True)
-    site3 = blocks.TextBlock(required=True)
-    site4 = blocks.TextBlock(required=True)
+    button_page=blocks.PageChooserBlock(required=False)
+    button_url= blocks.URLBlock(required=False, help_text="If the button page above is selected, that will be used first.")
+    item = blocks.ListBlock(
+        blocks.StructBlock([
+            ("title",blocks.CharBlock(required=True)),
+            ("button_page", blocks.PageChooserBlock(required=False)),
+            ("button_url", blocks.URLBlock(required=False, help_text="If the button page above is selected, that will be used first.")),
+        ])
+    )
 
     class Meta:
         template = "steams/NAVBAR.html"
@@ -174,8 +181,10 @@ class CardPicture(blocks.StructBlock):
     image = ImageChooserBlock(required=True)
     position = blocks.TextBlock(required=False)
     rounded=BooleanBlock(required=False)
-    AbstandNachObenUnten = blocks.CharBlock(required=False)
+    AbstandNachUnten = blocks.CharBlock(required=False)
+    AbstandNachOben = blocks.CharBlock(required=False)
     AbstandSeiten = blocks.CharBlock(required=False,help_text="Default=0")
+    button_url=blocks.URLBlock(required=False)
 
     class Meta:
         template = "steams/CardPicture.html"
@@ -207,6 +216,7 @@ class ThreeImagesCallToAction(blocks.StructBlock):
 class CardBlock(blocks.StructBlock):
     """Cards with image and text and buttons"""
     title = blocks.CharBlock(required=False)
+    id = blocks.CharBlock(required=False)
     AbstandNachObenUnten = blocks.CharBlock(required=False)
     HintergrundFarbe = blocks.CharBlock(required=False)
     SchriftFarbe = blocks.CharBlock(required=False)
@@ -227,7 +237,6 @@ class CardBlock(blocks.StructBlock):
             ("ButtonText",blocks.TextBlock(required=False)),
         ])
     )
-
     class Meta:
         template = "steams/CardBlock.html"
         icon="edit"
@@ -250,7 +259,6 @@ class SlideShow(blocks.StructBlock):
         template = "steams/SlideShow.html"
         icon="edit"
         label ="SlideShow"
-
 class ClickableCardBlock(blocks.StructBlock):
     """Cards with image and text and buttons"""
     AbstandNachObenUnten = blocks.CharBlock(required=False)
@@ -262,6 +270,7 @@ class ClickableCardBlock(blocks.StructBlock):
         blocks.StructBlock([
             ("image",ImageChooserBlock(required=False)),            
             ("button_page", blocks.PageChooserBlock(required=False)),
+            ("button_url", blocks.URLBlock(required=False, help_text="If the button page above is selected, that will be used first.")),
             ("ButtonTitle",blocks.TextBlock(required=False)),
             
         ])

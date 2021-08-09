@@ -11593,3 +11593,39 @@ header.masthead h1, header.masthead .h1 {
     
   }
 }
+
+.contact-form {
+  list-style-type: none;
+  padding-right: 20vw;
+  padding-left: 20vw;
+}
+.contact-form li {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.contact-form label {
+
+  font-weight: bold;
+}
+.contact-form input, textarea{
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+.contact-form .helptext {
+
+  font-size: 80%;
+}
+
+
+@media (max-width: 600px) {
+  .contact-form {
+    padding-right: 0vw;
+    padding-left: 0vw;
+  }
+  }
